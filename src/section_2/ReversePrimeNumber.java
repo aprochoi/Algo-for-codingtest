@@ -6,28 +6,32 @@ import java.util.Scanner;
 
 public class ReversePrimeNumber {
 
+    static boolean isPrime(int num) {
+        if (num == 1) {
+            return false;
+        }
+
+        for (int i = 2; i < num; i++) {
+            if (num % i == 0) return false;
+        }
+
+        return true;
+    }
+
     static ArrayList<Integer> solution(int[] arr) {
         ArrayList<Integer> list = new ArrayList<>();
-
-        String[] sArr = new String[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            sArr[i] = String.valueOf(arr[i]);
-        }
-
-        for (int i = 0; i < sArr.length; i++) {
-            sArr[i] = new StringBuilder(sArr[i]).reverse().toString();
-            int n = Integer.parseInt(sArr[i]);
-            int count = 0;
-            for (int j = 1; j <= n; j++) {
-                if (n % j == 0) {
-                    count++;
-                }
+        for (int i : arr) {
+            int tmp = i;
+            int res = 0;
+            while (tmp > 0) {
+                int t = tmp % 10;
+                res = res * 10 + t;
+                tmp /= 10;
             }
-            if (count == 2) {
-                list.add(n);
+            if (isPrime(res)) {
+                list.add(res);
             }
         }
-
 
         return list;
     }
